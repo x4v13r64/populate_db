@@ -17,7 +17,8 @@ def get_fake_user():
 def run(user, password, host):
     # Create DB
     conn = psycopg2.connect(
-        user=user, password=password, host=host, port='5432'
+        database="template1", user=user, password=password, host=host, port='5432'
+
     )
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT);
     cursor = conn.cursor()
@@ -52,7 +53,7 @@ def run(user, password, host):
         fake = get_fake_user()
         # Preparing SQL queries to INSERT a record into the database.
         cursor.execute("INSERT INTO USERS(ID, NAME, EMAIL, PASSWORD) VALUES ('{}', '{}', '{}', '{}')".
-            format(fake.get('uuid'), fake.get('name'), fake.get('mail'), fake.get('password')))
+                       format(fake.get('uuid'), fake.get('name'), fake.get('mail'), fake.get('password')))
 
     # Commit your changes in the database
     conn.commit()
